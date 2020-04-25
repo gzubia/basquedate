@@ -1,0 +1,192 @@
+%%Identification
+%%The package identifies itself and the LaTeX version needed
+\NeedsTeXFormat{LaTeX2e}
+\usepackage{arrayjob}
+\usepackage{stringstrings}
+\usepackage{xstring}
+\usepackage{xparse}
+
+\ProvidesPackage{basquedate}[data euskaraz]
+
+\newarray\hilak
+\readarray{hilak}{urtarrila&otsaila&martxoa&apirila&maiatza&ekaina&uztaila&abuztua&iraila&urria&azaroa&abendua}
+
+% -------- URTEA ----------------------------------------------------------------
+%% Urtearen azken digitua lortu, urtea ondo adierazteko
+
+\def\shortyear#1{\expandafter\shortyearhelper#1}
+\def\shortyearhelper#1#2#3#4{#1#2#3#4}
+
+\def\Year{\shortyear{\the\year}}
+
+%\def\Urtea{\Year}
+
+
+\def\urtearenAzkena{\expandafter\xUrteaAzkena\Year\relax}
+
+\def\xUrteaAzkena#1#2#3#4\relax{#4}
+
+\def\urtearenAurrekoa{\expandafter\xUrteaAurrekoa\Year\relax}
+
+\def\xUrteaAurrekoa#1#2#3#4\relax{#3}
+
+% -------------------------------------------------------------------------------
+
+% -------- DATA ----------------------------------------------------------------
+%% Erabiltzaileari eskeiniko den data sortu hurrrengoak kontuan hartuz:
+%%                                                                      -> Lekua -------> BarakaldoN, SanturtziN, BerrizEN, IrurtzunEN, ...
+%%                                                                      -> Urtea --------> 2020AN, 2021EAN, 2022AN, ...
+%%                                                                      -> Hilabetea
+%%                                                                      -> Eguna -------> 1EAN, 2AN, 3AN, 5EAN, ...
+%% eta lortutako data honako itxura hau izango du:
+%%                                                  <lekua>(e)n, <urtea>(e)ko <hilabetea>aren <eguna>a(ea)n
+%% Adibidez,
+%%                                                  Barakaldon, 2020ko apirilaren 25ean
+
+%% Lekuaren azken karakterea irakurri
+\def\strng{\Lekua}
+\substring[q]{\strng}{$}{$}
+\edef\lastchar{\thestring}
+
+\def\urtearenAurrekoa{\expandafter\xUrteaAurrekoa\the\year\relax}
+
+\def\xUrteaAurrekoa#1#2#3#4\relax{#3}
+
+\def\urtearenAzkena{\expandafter\xUrteaAzkena\the\year\relax}
+
+\def\xUrteaAzkena#1#2#3#4\relax{#4}
+
+
+%%__Eguna eta lekuaren araberako markak ipintzeko baldintzen definizioa sortu__
+\ExplSyntaxOn
+
+\NewDocumentCommand{\ifLekua}{mmO{}}
+ {% #1 is a list of items of the form {year,...}
+  % #2 is the code to execute in case of a match
+  % #3 (optional) is the code to use in case of no match
+  \str_if_in:nVTF { #1 } \lastchar { #2 } { #3 }
+ }
+ 
+ \NewDocumentCommand{\ifEguna}{mmO{}}
+ {% #1 is a list of items of the form {year,...}
+  % #2 is the code to execute in case of a match
+  % #3 (optional) is the code to use in case of no match
+  \str_if_in:nVTF { #1 } \day { #2 } { #3 }
+ }
+ 
+ 
+\prg_generate_conditional_variant:Nnn \str_if_in:nn { nV } { T, F, TF }
+\ExplSyntaxOff
+%% Data sortzen da
+\newcommand{\dataEuskaraz}{
+                            %% Azken karakterea kontsonantea bada, -en gehitu, bestela -n
+				\ifLekua{a,e,i,o,u}{\Lekua{n,}}[\ifLekua{r}{\Lekua{ren,}}[\Lekua{\bfseries{en}},]]
+				\ifnum\urtearenAurrekoa=0
+					\ifnum\urtearenAzkena=0
+						\the\year{ko}
+		                        \else
+                       				\ifnum\urtearenAzkena=1
+							\the\year{eko}
+			                        \else
+                          				\ifnum\urtearenAzkena=5
+								\the\year{eko}
+							\else
+								\the\year{ko}
+							\fi
+						\fi
+					\fi
+	                        \else
+		                        \ifnum\urtearenAurrekoa=3
+						\ifnum\urtearenAzkena=0
+							\the\year{eko}
+		                     	   	\else
+                       					\ifnum\urtearenAzkena{0}=1
+								\the\year{eko}
+			               	         	\else
+                          					\ifnum\urtearenAzkena{0}=5
+									\the\year{eko}
+								\else
+									\the\year{ko}
+								\fi
+							\fi
+						\fi
+	                       		\else
+					        \ifnum\urtearenAurrekoa=5
+							\ifnum\urtearenAzkena{0}=0
+								\the\year{eko}
+		                     	   		\else
+                       						\ifnum\urtearenAzkena{0}=1
+									\the\year{eko}
+			               	        			 \else
+                          						\ifnum\urtearenAzkena{0}=5
+										\the\year{eko}
+									\else
+										\the\year{ko}
+									\fi
+								\fi								
+							\fi
+	                       			\else
+							\ifnum\urtearenAurrekoa=7
+								\ifnum\urtearenAzkena{0}=0
+									\the\year{eko}
+		        	             	   			\else
+                       							\ifnum\urtearenAzkena{0}=1
+										\the\year{eko}
+			               	        				 \else
+                          							\ifnum\urtearenAzkena{0}=5
+											\the\year{eko}
+										\else
+											\the\year{ko}
+										\fi
+									\fi										
+								\fi									
+	                       				\else
+								\ifnum\urtearenAurrekoa=9
+									\ifnum\urtearenAzkena{0}=0
+										\the\year{eko}
+		                     	  				 \else
+                       								\ifnum\urtearenAzkena{0}=1
+											\the\year{eko}
+			               	         				\else
+                          								\ifnum\urtearenAzkena{0}=5
+												\the\year{eko}
+											\else
+												\the\year{ko}
+											\fi
+										\fi										
+									\fi
+	                       					\else
+									\ifnum\urtearenAurrekoa=1
+										\ifnum\urtearenAzkena=0
+											\the\year{eko}
+		                     	  					 \else
+											\ifnum\urtearenAzkena=1
+												\the\year{ko}
+			               	         					\else
+                          									\ifnum\urtearenAzkena=5
+													\the\year{eko}
+												\else
+													\the\year{ko}
+												\fi
+											\fi
+										\fi
+									\else
+										\ifnum\urtearenAzkena=5
+											\the\year{eko}
+										\else
+											\ifnum\urtearenAzkena=1
+												\the\year{eko}
+											\else
+												\the\year{ko}
+											\fi
+										\fi
+									\fi
+								\fi
+							\fi
+						\fi
+					\fi
+        			        \fi 
+        			        \hilak(4){ren}
+			        \ifEguna{1,5,10,15,21,25,30}{\the\day{ean}}[\the\day{an}]
+			       
+			}

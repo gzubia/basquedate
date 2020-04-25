@@ -1,0 +1,62 @@
+NAME
+    basquedate --  [eus] Pakete honek edozein dokumentuari data gehitzen dio Euskaltzaindiaren 37. araua jarraituz
+		   [en]  This package adds the date in formal Basque according to the 37th rule of Euskaltzaindia
+
+VERSION
+    Version: v1.0
+
+COPYRIGHT
+    [eus]
+    Copyright (cc) Gorka Zubia Garea <brkgzg@gmail.com>
+
+    LANA CREATIVE COMMONS-EN BAIMEN PUBLIKO (CCPL BAIMENA) HONEN BALDINTZAPEAN ESKAINTZEN DA. 
+    LANA ESPAINIAKO JABETZA INTELEKTUALAREN LEGEAREN ETA EZARGARRI DIREN GAINERAKO ARAUEN BABESEAN DAUDE. 
+    DEBEKATURIK DAGO LAN HAU ERABILTZEA BAIMEN HONETAN ONETSITAKOAZ EDOTA JABETZA INTELEKTUALAREN LEGEETAN XEDATUTAKOAZ KANPOKO BESTE EZERTARAKO.
+
+    LANAREN GAINEKO EDOZEIN ESKUBIDE ERABILIZ GERO, BAIMEN HONEN MUGAK ETA BETEBEHARRAK ONARTZEN ETA BAIESTEN DITUZU, BAZTERREAN UTZI GABE BERARIAZKO
+    BAIMENTZEA, BAIMENA ALDEZ AURRETIK URRATUZ GERO. BAIMENDUNAK BAIMEN HONEN MENDE DIREN ESKUBIDEAK LAGATZEN DIZKIZU, ZUK BALDINTZA ETA BETEBEHAR HAUEK
+    ONARTZEN BADITUZU.
+	
+    Informazio gehiago: https://creativecommons.org/licenses/by-sa/3.0/es/legalcode.eu
+
+    [en]
+    THE WORK IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER
+    APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+    BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE
+    CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.
+    
+    More information: https://creativecommons.org/licenses/by-sa/3.0/legalcode
+
+DESCRIPTION
+     [eus]
+     Pakete honek edozein dokumentuari data hizkuntza formalean gehitzen dio, Euskaltzaindiaren 37. araua jarraituz. 
+     [en]
+     In this document the basqueDate TEX date package is presented. This package adds the date in formal Basque to 
+     the document, following the 37th rule of Euskaltzaindia.
+
+
+USAGE
+     [eus]
+     Pakete honen erabilera oso sinplea da. Data euskaraz ipintzeko hiru pauso baino ez jarraitu behar dira. 
+	1. Dokumentua non idatzi den zehaztu orrialdean. Specify where the document has been written,
+		\newcommand{\Lekua}{Barakaldo}} 
+	2. Paketeagehitu.Loadthepackage,
+		\usepackage{basqueDate}
+	3. Datahurrengomoduraformateatu\maketitleaginduaexekutatubainolehen.Format the date before executing \maketitle , 
+		\date{\dataEuskaraz}
+     TEX dokumentua konpilatzen den hurrengoan, dokumentuaren data hizkuntza egokian egongo da!
+
+     [en]
+     The usage of this package is really simple. In order to get the date in Basque, three steps have to be followed:
+	1. Dokumentua non idatzi den zehaztu orrialdean. Specify where the document has been written,
+		\newcommand{\Lekua}{Barakaldo}} 
+	2. Paketeagehitu.Loadthepackage,
+		\usepackage{basqueDate}
+	3. Datahurrengomoduraformateatu\maketitleaginduaexekutatubainolehen.Format the date before executing \maketitle , 
+		\date{\dataEuskaraz}
+     The next time the TEX document is executed, the date will be in the right format!
+
+AUTHOR
+    Gorka Zubia Garea
+
+    E-mail: <brkgzg@gmail.com>
